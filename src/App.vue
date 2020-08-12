@@ -1,32 +1,45 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <div class="d-flex" id="wrapper" v-bind:class="{ toggled: sidebarHidden }">
+
+        <Sidebar />
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+          <Topbar />
+
+          <TargetList />
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+      </div>
+      <!-- /#wrapper -->
     </div>
-    <router-view/>
   </div>
 </template>
 
+<script>
+  import { mapGetters } from 'vuex';
+  
+  import Sidebar from './components/sidebar/Sidebar';
+  import Topbar from './components/topbar/Topbar';
+  import TargetList from './components/target/TargetList';
+
+  export default {
+    name: 'App',
+    computed: {
+      ...mapGetters(['sidebarHidden'])
+    },
+    components: {
+      Sidebar,
+      Topbar,
+      TargetList
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
