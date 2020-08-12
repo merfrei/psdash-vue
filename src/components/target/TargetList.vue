@@ -5,7 +5,9 @@
             data-toggle="table"
             data-search="true"
             data-show-columns="true"
-            data-sortable="true">
+            data-sortable="true"
+            data-pagination="true"
+            data-page-size="50">
             <thead class="thead-light">
             <tr>
                 <th data-field="identifier" data-sortable="true">Identifier</th>
