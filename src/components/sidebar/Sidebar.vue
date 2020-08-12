@@ -1,6 +1,6 @@
 <template>
     <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Start Bootstrap </div>
+        <div class="sidebar-heading"><a href="/">PSDash</a> </div>
         <div class="list-group list-group-flush">
             <router-link to="/targets" class="list-group-item list-group-item-action bg-light">Targets</router-link>
             <router-link to="/proxies" class="list-group-item list-group-item-action bg-light">Proxies</router-link>

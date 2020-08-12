@@ -4,15 +4,16 @@
             id="proxies-table"
             data-toggle="table"
             data-search="true"
-            data-show-columns="true">
+            data-show-columns="true"
+            data-sortable="true">
             <thead class="thead-light">
             <tr>
-                <th>URL</th>
-                <th>Active</th>
-                <th>Type</th>
-                <th>Location</th>
-                <th>Provider</th>
-                <th>Plan</th>
+                <th data-field="url" data-sortable="true">URL</th>
+                <th data-field="active" data-sortable="true">Active</th>
+                <th data-field="type_id" data-sortable="true">Type</th>
+                <th data-field="location_id" data-sortable="true">Location</th>
+                <th data-field="provider_id" data-sortable="true">Provider</th>
+                <th data-field="provider_plan_id" data-sortable="true">Plan</th>
                 <th>Actions</th>
             </tr>
             </thead>
