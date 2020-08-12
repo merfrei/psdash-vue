@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import TargetList from '@/components/target/TargetList.vue';
+import ProxyList from '@/components/proxy/ProxyList.vue';
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,11 @@ Vue.use(VueRouter);
     path: '/targets',
     name: 'Targets',
     component: TargetList
+  },
+  {
+    path: '/proxies',
+    name: 'Proxies',
+    component: ProxyList
   }
 ]
 

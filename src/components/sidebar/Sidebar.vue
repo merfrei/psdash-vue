@@ -3,6 +3,7 @@
         <div class="sidebar-heading">Start Bootstrap </div>
         <div class="list-group list-group-flush">
             <router-link to="/targets" class="list-group-item list-group-item-action bg-light">Targets</router-link>
+            <router-link to="/proxies" class="list-group-item list-group-item-action bg-light">Proxies</router-link>
         </div>
     </div>
 </template>
@@ -12,3 +13,11 @@ export default {
     name: 'Sidebar'
 }
 </script>
+
+<style>
+
+.router-link-active{
+    background-color: #e9ecef !important;
+}
+
+</style>
