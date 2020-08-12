@@ -1,11 +1,15 @@
 <template>
     <tr>
-        <td>{{ identifier }}</td>
-        <td>{{ domain }}</td>
-        <td>{{ blockedStandby }}</td>
+        <td>{{ target.identifier }}</td>
+        <td>{{ target.domain }}</td>
+        <td>{{ target.blocked_standby }}</td>
         <td>...</td>
     </tr>
 </template>
 
 <script>
+export default {
+    name: 'Target',
+    props: ['target']
+}
 </script>

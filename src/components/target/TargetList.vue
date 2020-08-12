@@ -1,6 +1,10 @@
 <template>
     <div class="container-fluid">
-        <table class="table table-hover">
+        <table
+            id="targets-table"
+            data-toggle="table"
+            data-search="true"
+            data-show-columns="true">
             <thead class="thead-light">
             <tr>
                 <th>Identifier</th>
@@ -17,7 +21,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import Target from './Target';
+
 export default {
-    name: 'TargetList'
+    name: 'TargetList',
+    computed: {
+        ...mapGetters(['targets'])
+    },
+    components: {
+        Target
+    },
+    created() {
+        this.$store.dispatch('getTargets');
+    },
+    mounted() {
+        // eslint-disable-next-line no-undef
+        $('#targets-table').bootstrapTable();
+    }
 }
 </script>

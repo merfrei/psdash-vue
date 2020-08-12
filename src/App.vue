@@ -10,7 +10,7 @@
 
           <Topbar />
 
-          <TargetList />
+          <router-view></router-view>
 
         </div>
         <!-- /#page-content-wrapper -->
@@ -26,7 +26,6 @@
   
   import Sidebar from './components/sidebar/Sidebar';
   import Topbar from './components/topbar/Topbar';
-  import TargetList from './components/target/TargetList';
 
   export default {
     name: 'App',
@@ -35,8 +34,7 @@
     },
     components: {
       Sidebar,
-      Topbar,
-      TargetList
+      Topbar
     }
   }
 </script>
