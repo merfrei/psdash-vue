@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <table
-            id="targets-table"
+            id="locations-table"
             data-toggle="table"
             data-search="true"
             data-show-columns="true"
@@ -10,38 +10,37 @@
             data-page-size="50">
             <thead class="thead-light">
             <tr>
-                <th data-field="identifier" data-sortable="true">Identifier</th>
-                <th data-field="domain" data-sortable="true">Domain</th>
-                <th data-field="blocked_standby" data-sortable="true">Blocked Sleep (minutes)</th>
+                <th data-field="code" data-sortable="true">Code</th>
+                <th data-field="name" data-sortable="true">Name</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-                <Target v-for="target in targets" :key="target.id" :target="target" />
+                <Location v-for="location in locations" :key="location.id" :location="location" />
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-import Target from './Target';
+import Location from './Location';
 
 export default {
-    name: 'TargetList',
+    name: 'LocationList',
     computed: {
-        targets () {
-            return this.$store.getters.getTargets;
+        locations () { 
+            return this.$store.getters.getLocations;
         }
     },
     components: {
-        Target
+        Location
     },
     created() {
-        this.$store.dispatch('fetchTargets');
+        this.$store.dispatch('fetchLocations');
     },
     mounted() {
         // eslint-disable-next-line no-undef
-        $('#targets-table').bootstrapTable();
+        $('#locations-table').bootstrapTable();
     }
 }
 </script>

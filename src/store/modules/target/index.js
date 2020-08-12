@@ -9,7 +9,7 @@ const mutations = {
 }
 
 const actions = {
-    getTargets ({ commit }) {
+    fetchTargets ({ commit }) {
         const targets = [
             {'id': 1,
              'identifier': 'AMZ',
@@ -33,7 +33,7 @@ const actions = {
 }
 
 const getters = {
-    targets: state => state.targets
+    getTargets: state => state.targets
 }
 
 const targetModule = {

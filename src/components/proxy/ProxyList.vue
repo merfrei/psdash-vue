@@ -27,19 +27,20 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import Proxy from './Proxy';
 
 export default {
     name: 'ProxyList',
     computed: {
-        ...mapGetters(['proxies'])
+        proxies () {
+            return this.$store.getters.getProxies;
+        }
     },
     components: {
         Proxy
     },
     created() {
-        this.$store.dispatch('getProxies');
+        this.$store.dispatch('fetchProxies');
     },
     mounted() {
         // eslint-disable-next-line no-undef

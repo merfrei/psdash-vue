@@ -9,7 +9,7 @@ const mutations = {
 }
 
 const actions = {
-    getProxies ({ commit }) {
+    fetchProxies ({ commit }) {
         const proxies = [
             {'id': 1,
              'url': 'http://160.202.77.78:29842',
@@ -56,7 +56,7 @@ const actions = {
 }
 
 const getters = {
-    proxies: state => state.proxies
+    getProxies: state => state.proxies
 }
 
 const proxyModule = {

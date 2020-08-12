@@ -4,6 +4,10 @@
         <div class="list-group list-group-flush">
             <router-link to="/targets" class="list-group-item list-group-item-action bg-light">Targets</router-link>
             <router-link to="/proxies" class="list-group-item list-group-item-action bg-light">Proxies</router-link>
+            <router-link to="/types" class="list-group-item list-group-item-action bg-light">Types</router-link>
+            <router-link to="/locations" class="list-group-item list-group-item-action bg-light">Locations</router-link>
+            <router-link to="/providers" class="list-group-item list-group-item-action bg-light">Providers</router-link>
+            <router-link to="/plans" class="list-group-item list-group-item-action bg-light">Plans</router-link>
         </div>
     </div>
 </template>

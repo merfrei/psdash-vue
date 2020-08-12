@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <table
-            id="targets-table"
+            id="plans-table"
             data-toggle="table"
             data-search="true"
             data-show-columns="true"
@@ -10,38 +10,38 @@
             data-page-size="50">
             <thead class="thead-light">
             <tr>
-                <th data-field="identifier" data-sortable="true">Identifier</th>
-                <th data-field="domain" data-sortable="true">Domain</th>
-                <th data-field="blocked_standby" data-sortable="true">Blocked Sleep (minutes)</th>
+                <th data-field="code" data-sortable="true">Code</th>
+                <th data-field="provider_id" data-sortable="true">Plan</th>
+                <th data-field="name" data-sortable="true">Name</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-                <Target v-for="target in targets" :key="target.id" :target="target" />
+                <Plan v-for="plan in plans" :key="plan.id" :plan="plan" />
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-import Target from './Target';
+import Plan from './Plan';
 
 export default {
-    name: 'TargetList',
+    name: 'PlanList',
     computed: {
-        targets () {
-            return this.$store.getters.getTargets;
+        plans () { 
+            return this.$store.getters.getPlans;
         }
     },
     components: {
-        Target
+        Plan
     },
     created() {
-        this.$store.dispatch('fetchTargets');
+        this.$store.dispatch('fetchPlans');
     },
     mounted() {
         // eslint-disable-next-line no-undef
-        $('#targets-table').bootstrapTable();
+        $('#plans-table').bootstrapTable();
     }
 }
 </script>
