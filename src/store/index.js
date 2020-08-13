@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import login from './modules/login';
 import sidebar from './modules/sidebar';
 import target from './modules/target';
 import proxy from './modules/proxy';
@@ -11,13 +12,14 @@ import plan from './modules/plan';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    sidebar,
-    target,
-    proxy,
-    type,
-    location,
-    provider,
-    plan
-  }
+    modules: {
+        login,
+        sidebar,
+        target,
+        proxy,
+        type,
+        location,
+        provider,
+        plan
+    }
 });
