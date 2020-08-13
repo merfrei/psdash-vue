@@ -4,14 +4,14 @@
 
             <!-- Icon -->
             <div class="fadeIn first">
-                <img src="require('../../assets/logo.png')" id="logo" alt="Logo" />
+                <img :src="require('../../assets/logo.png')" id="logo" alt="Logo" />
             </div>
 
             <!-- Login Form -->
             <form method="POST">
-                <input v-bind="username" type="text" id="username" class="fadeIn second" name="username" placeholder="username" required>
-                <input v-bind="password" type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
-                <input type="submit" class="fadeIn fourth" value="Log In">
+                <input v-model="username" type="text" id="username" class="fadeIn second" name="username" placeholder="username" required>
+                <input v-model="password" type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+                <input type="submit" class="fadeIn fourth" value="Log In" @click="login">
             </form>
 
             <!-- Footer -->
@@ -34,7 +34,8 @@ export default {
         }
     },
     methods: {
-        login () {
+        login (event) {
+            event.preventDefault();
             this.$api.username = this.username;
             this.$api.token = this.password;
             this.$api.checkSession().then((isOk) => {
@@ -234,6 +235,7 @@ input[type=text]:placeholder, input[type=password]:placeholder {
         -webkit-transform: none;
         transform: none;
     }
+}
 
 /* Simple CSS3 Fade-in Animation */
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }

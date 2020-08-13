@@ -16,9 +16,11 @@ const routes = [
         name: 'Login',
         component: Login,
         beforeEnter: (to, from, next) => {
-            this.app.$api.checkSession().then((isOk) => {
+            router.app.$api.checkSession().then((isOk) => {
                 if (isOk) {
                     next('/targets');
+                } else {
+                    next();
                 }
             });
         }
@@ -66,12 +68,12 @@ router.beforeEach((to, from, next) => {
     // Check session
     if (to.path === '/login') {
         next();
-    } else if (this.app.$api === undefined) {
+    } else if (router.app.$api === undefined) {
         next('/login');
-    } else if (this.app.$api.token === undefined) {
+    } else if (router.app.$api.token === undefined) {
         next('/login');
     } else {
-        this.app.$api.checkSession().then((isOk) => {
+        router.app.$api.checkSession().then((isOk) => {
             if (isOk) {
                 next();
             } else {

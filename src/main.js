@@ -6,8 +6,7 @@ import API from './lib/api';
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$api = API('/api/');
-Vue.prototype.$api.loadSession();
+Vue.prototype.$api = new API('/api/');
 
 new Vue({
     router,

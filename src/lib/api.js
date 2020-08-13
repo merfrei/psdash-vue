@@ -7,6 +7,7 @@ class API {
         this.baseURL = url;
         this.username = username;
         this.token = token;
+        this.loadSession();
     }
     request(reqConfig) {
         let config = {
@@ -52,26 +53,32 @@ class API {
         });
     }
     updateToken(token) {
+        Cookies.set('username', this.username)
         Cookies.set('token', token, { expires: 1 });
         this.token = token;
     }
     logout() {
+        Cookies.remove('username');
         Cookies.remove('token');
         this.token = undefined;
     }
     loadSession() {
+        this.username = Cookies.get('username')
         this.token = Cookies.get('token');
     }
     checkSession() {
-        return this.POST('/token', { 'username': this.username }).then((response) => {
-            if (response.status === 403) {
-                this.app.$api.logout();
-                return false;
-            }
-            if (response.status === 200) {
-                this.app.$api.updateToken(response.data.token);
-            }
-            return true;
+        return new Promise((resolve) => {
+            this.POST('/token', { 'username': this.username }).then((response) => {
+                if (response.status === 200) {
+                    this.updateToken(response.data.data.token);
+                }
+                resolve(true);
+            }).catch((error) => {
+                if (error.response.status === 403) {
+                    this.logout();
+                }
+                resolve(false);
+            });
         });
     }
 }
