@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div v-if="isVisible" class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading"><a href="/">PSDash</a> </div>
         <div class="list-group list-group-flush">
             <router-link to="/targets" class="list-group-item list-group-item-action bg-light">Targets</router-link>
@@ -14,7 +14,12 @@
 
 <script>
 export default {
-    name: 'Sidebar'
+    name: 'Sidebar',
+    computed: {
+        isVisible() {
+            return this.$api.token !== undefined;
+        }
+    }
 }
 </script>
 

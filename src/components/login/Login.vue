@@ -14,9 +14,11 @@
                 <input type="submit" class="fadeIn fourth" value="Log In" @click="login">
             </form>
 
+            <p class="text-danger" v-if="message">{{ message }}</p>
+
             <!-- Footer -->
             <div id="formFooter">
-                <p class="m-0 text-center text-secondary">Copyright &copy; Merfrei Solutions 2020</p>
+                <p class="m-0 text-center text-secondary">Copyright &copy; Merfrei Solutions {{ new Date().getFullYear() }}</p>
             </div>
 
         </div>
@@ -29,6 +31,7 @@ export default {
     name: 'Login',
     data () {
         return {
+            message: '',
             username: '',
             password: ''
         }
@@ -36,13 +39,14 @@ export default {
     methods: {
         login (event) {
             event.preventDefault();
+            this.message = '';
             this.$api.username = this.username;
             this.$api.token = this.password;
             this.$api.checkSession().then((isOk) => {
                 if (!isOk) {
-                    alert('Not valid username/password');
+                    this.message = 'Wrong username/password';
                 } else {
-                    this.$router.push({ path: '/targets' });
+                    window.location.replace('/');  // To force a clean init
                 }
             });
         }
@@ -102,8 +106,8 @@ h2 {
     max-width: 450px;
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 5px 30px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 5px 30px 0 rgba(0,0,0,0.3);
     text-align: center;
 }
 
