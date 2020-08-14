@@ -1,47 +1,55 @@
 <template>
     <div class="container-fluid">
-        <table
-            id="providers-table"
-            data-toggle="table"
-            data-search="true"
-            data-show-columns="true"
-            data-sortable="true"
-            data-pagination="true"
-            data-page-size="50">
-            <thead class="thead-light">
-            <tr>
-                <th data-field="code" data-sortable="true">Code</th>
-                <th data-field="name" data-sortable="true">Name</th>
-                <th data-field="url" data-sortable="true">Website</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                <Provider v-for="provider in providers" :key="provider.id" :provider="provider" />
-            </tbody>
-        </table>
+        <BootstrapTable
+            :columns="columns"
+            :data="providers"
+            :options="options" />
     </div>
 </template>
 
 <script>
-import Provider from './Provider';
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js';
 
 export default {
     name: 'ProviderList',
+    data() {
+        return {
+            columns: [
+                {
+                    title: 'Code',
+                    field: 'code',
+                    sortable: true
+                },
+                {
+                    title: 'Name',
+                    field: 'name',
+                    sortable: true
+                },
+                {
+                    title: 'URL',
+                    field: 'url',
+                    sortable: true
+                }
+            ],
+            options: {
+                search: true,
+                showColumns: true,
+                sortable: true,
+                pagination: true,
+                pageSize: 10
+            }
+        };
+    },
     computed: {
-        providers () { 
+        providers () {
             return this.$store.getters.getProviders;
         }
     },
     components: {
-        Provider
+        BootstrapTable
     },
     created() {
-        this.$store.dispatch('fetchProviders');
-    },
-    mounted() {
-        // eslint-disable-next-line no-undef
-        $('#providers-table').bootstrapTable();
+        this.$store.dispatch('fetchProviders', { api: this.$api });
     }
 }
 </script>

@@ -9,16 +9,10 @@ const mutations = {
 }
 
 const actions = {
-    fetchTypes ({ commit }) {
-        const types = [
-            {'id': 1,
-             'code': 'PRV',
-             'name': 'Private'},
-             {'id': 2,
-             'code': 'TOR',
-             'name': 'Tor'}
-        ];
-        commit('UPDATE_TYPES', types);
+    fetchTypes ({ commit }, { api }) {
+        api.GET('proxy_type').then((resp) => {
+            commit('UPDATE_TYPES', resp.data.data);
+        });
     }
 }
 

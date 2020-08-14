@@ -1,47 +1,55 @@
 <template>
     <div class="container-fluid">
-        <table
-            id="targets-table"
-            data-toggle="table"
-            data-search="true"
-            data-show-columns="true"
-            data-sortable="true"
-            data-pagination="true"
-            data-page-size="50">
-            <thead class="thead-light">
-            <tr>
-                <th data-field="identifier" data-sortable="true">Identifier</th>
-                <th data-field="domain" data-sortable="true">Domain</th>
-                <th data-field="blocked_standby" data-sortable="true">Blocked Sleep (minutes)</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                <Target v-for="target in targets" :key="target.id" :target="target" />
-            </tbody>
-        </table>
+        <BootstrapTable
+            :columns="columns"
+            :data="targets"
+            :options="options" />
     </div>
 </template>
 
 <script>
-import Target from './Target';
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js';
 
 export default {
     name: 'TargetList',
+    data() {
+        return {
+            columns: [
+                {
+                    title: 'Identifier',
+                    field: 'identifier',
+                    sortable: true
+                },
+                {
+                    title: 'Domain',
+                    field: 'domain',
+                    sortable: true
+                },
+                {
+                    title: 'Blocked Sleep (minutes)',
+                    field: 'blocked_standby',
+                    sortable: true
+                }
+            ],
+            options: {
+                search: true,
+                showColumns: true,
+                sortable: true,
+                pagination: true,
+                pageSize: 10
+            }
+        };
+    },
     computed: {
         targets () {
             return this.$store.getters.getTargets;
         }
     },
     components: {
-        Target
+        BootstrapTable
     },
     created() {
-        this.$store.dispatch('fetchTargets');
-    },
-    mounted() {
-        // eslint-disable-next-line no-undef
-        $('#targets-table').bootstrapTable();
+        this.$store.dispatch('fetchTargets', { api: this.$api });
     }
 }
 </script>

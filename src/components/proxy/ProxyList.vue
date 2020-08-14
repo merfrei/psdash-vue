@@ -1,50 +1,80 @@
 <template>
     <div class="container-fluid">
-        <table
-            id="proxies-table"
-            data-toggle="table"
-            data-search="true"
-            data-show-columns="true"
-            data-sortable="true"
-            data-pagination="true"
-            data-page-size="50">
-            <thead class="thead-light">
-            <tr>
-                <th data-field="url" data-sortable="true">URL</th>
-                <th data-field="active" data-sortable="true">Active</th>
-                <th data-field="type_id" data-sortable="true">Type</th>
-                <th data-field="location_id" data-sortable="true">Location</th>
-                <th data-field="provider_id" data-sortable="true">Provider</th>
-                <th data-field="provider_plan_id" data-sortable="true">Plan</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                <Proxy v-for="proxy in proxies" :key="proxy.id" :proxy="proxy" />
-            </tbody>
-        </table>
+        <BootstrapTable
+            :columns="columns"
+            :data="proxies"
+            :options="options" />
     </div>
 </template>
 
 <script>
-import Proxy from './Proxy';
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js';
 
 export default {
     name: 'ProxyList',
+    data() {
+        return {
+            columns: [
+                {
+                    title: 'URL',
+                    field: 'url',
+                    sortable: true
+                },
+                {
+                    title: 'Active',
+                    field: 'active_desc',
+                    sortable: true,
+                    formatter: this.formatActive
+                },
+                {
+                    title: 'Type',
+                    field: 'type_desc',
+                    sortable: true
+                },
+                {
+                    title: 'Location',
+                    field: 'location_desc',
+                    sortable: true
+                },
+                {
+                    title: 'Provider',
+                    field: 'provider_name',
+                    sortable: true
+                },
+                {
+                    title: 'Plan',
+                    field: 'plan_desc',
+                    sortable: true
+                }
+            ],
+            options: {
+                search: true,
+                showColumns: true,
+                sortable: true,
+                pagination: true,
+                pageSize: 10
+            }
+        };
+    },
     computed: {
         proxies () {
             return this.$store.getters.getProxies;
         }
     },
+    methods: {
+        formatActive(value) {
+            if (value == 'Yes') {
+                return '<span class="text-success">' + value + '</span>';
+            } else {
+                return '<span class="text-danger">' + value + '</span>';
+            }
+        }
+    },
     components: {
-        Proxy
+        BootstrapTable
     },
     created() {
-        this.$store.dispatch('fetchProxies');
-    },
-    mounted() {
-        // eslint-disable-next-line no-undef
-        $('#proxies-table').bootstrapTable();
+        this.$store.dispatch('fetchProxies', { api: this.$api });
     }
 }
 </script>

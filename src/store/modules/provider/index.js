@@ -9,18 +9,10 @@ const mutations = {
 }
 
 const actions = {
-    fetchProviders ({ commit }) {
-        const providers = [
-            {'id': 1,
-             'code': 'CRW',
-             'name': 'Crawlera',
-             'url': 'crawlera.com'},
-            {'id': 2,
-             'code': 'MPP',
-             'name': 'My Private Proxy',
-             'url': 'myprivateproxy.com'}
-        ];
-        commit('UPDATE_PROVIDERS', providers);
+    fetchProviders ({ commit }, { api }) {
+        api.GET('provider').then((resp) => {
+            commit('UPDATE_PROVIDERS', resp.data.data);
+        });
     }
 }
 

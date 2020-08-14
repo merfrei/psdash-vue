@@ -9,16 +9,10 @@ const mutations = {
 }
 
 const actions = {
-    fetchLocations ({ commit }) {
-        const locations = [
-            {'id': 1,
-             'code': 'US',
-             'name': 'United States'},
-            {'id': 2,
-             'code': 'UK',
-             'name': 'United Kingdom'}
-        ];
-        commit('UPDATE_LOCATIONS', locations);
+    fetchLocations ({ commit }, { api }) {
+        api.GET('proxy_location').then((resp) => {
+            commit('UPDATE_LOCATIONS', resp.data.data);
+        });
     }
 }
 

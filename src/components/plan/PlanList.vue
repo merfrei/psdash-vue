@@ -1,47 +1,55 @@
 <template>
     <div class="container-fluid">
-        <table
-            id="plans-table"
-            data-toggle="table"
-            data-search="true"
-            data-show-columns="true"
-            data-sortable="true"
-            data-pagination="true"
-            data-page-size="50">
-            <thead class="thead-light">
-            <tr>
-                <th data-field="code" data-sortable="true">Code</th>
-                <th data-field="provider_id" data-sortable="true">Plan</th>
-                <th data-field="name" data-sortable="true">Name</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                <Plan v-for="plan in plans" :key="plan.id" :plan="plan" />
-            </tbody>
-        </table>
+        <BootstrapTable
+            :columns="columns"
+            :data="plans"
+            :options="options" />
     </div>
 </template>
 
 <script>
-import Plan from './Plan';
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js';
 
 export default {
     name: 'PlanList',
+    data() {
+        return {
+            columns: [
+                {
+                    title: 'Code',
+                    field: 'code',
+                    sortable: true
+                },
+                {
+                    title: 'Provider',
+                    field: 'provider_desc',
+                    sortable: true
+                },
+                {
+                    title: 'Name',
+                    field: 'name',
+                    sortable: true
+                }
+            ],
+            options: {
+                search: true,
+                showColumns: true,
+                sortable: true,
+                pagination: true,
+                pageSize: 10
+            }
+        };
+    },
     computed: {
-        plans () { 
+        plans () {
             return this.$store.getters.getPlans;
         }
     },
     components: {
-        Plan
+        BootstrapTable
     },
     created() {
-        this.$store.dispatch('fetchPlans');
-    },
-    mounted() {
-        // eslint-disable-next-line no-undef
-        $('#plans-table').bootstrapTable();
+        this.$store.dispatch('fetchPlans', { api: this.$api });
     }
 }
 </script>

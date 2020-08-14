@@ -9,26 +9,10 @@ const mutations = {
 }
 
 const actions = {
-    fetchTargets ({ commit }) {
-        const targets = [
-            {'id': 1,
-             'identifier': 'AMZ',
-             'domain': 'amazon.com',
-             'blocked_standby': 15},
-             {'id': 2,
-             'identifier': 'GLE',
-             'domain': 'google.com',
-             'blocked_standby': 35},
-             {'id': 3,
-             'identifier': 'MFR',
-             'domain': 'merfrei.com',
-             'blocked_standby': 5},
-             {'id': 4,
-             'identifier': 'FKT',
-             'domain': 'fake.com',
-             'blocked_standby': 30}
-        ];
-        commit('UPDATE_TARGETS', targets);
+    fetchTargets ({ commit }, { api }) {
+        api.GET('target').then((resp) => {
+            commit('UPDATE_TARGETS', resp.data.data);
+        });
     }
 }
 
