@@ -19,14 +19,15 @@ class API {
         };
         return axios({ ...reqConfig, ...config });
     }
-    GET(route, id) {
+    GET(route, id, params) {
         let url = route;
         if (id !== undefined) {
             url = url + '/' + id;
         }
         return this.request({
             url: url,
-            method: 'get'
+            method: 'get',
+            params: params
         });
     }
     POST(route, data) {
@@ -49,7 +50,7 @@ class API {
         let url = route;
         return this.request({
             url: url + '/' + id,
-            method: 'put',
+            method: 'delete',
         });
     }
     updateToken(token) {

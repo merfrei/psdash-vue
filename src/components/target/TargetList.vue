@@ -1,14 +1,21 @@
 <template>
     <div class="container-fluid">
+        <div id="toolbar">
+            <button id="newTargetBtn" class="btn btn-success" @click="addNewTarget">
+                <i class="fa fa-plus"></i> New
+            </button>
+        </div>
         <BootstrapTable
             :columns="columns"
             :data="targets"
-            :options="options" />
+            :options="options"
+            @on-click-cell="performAction" />
     </div>
 </template>
 
 <script>
 import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js';
+import TargetForm from './TargetForm';
 
 export default {
     name: 'TargetList',
@@ -29,9 +36,20 @@ export default {
                     title: 'Blocked Sleep (minutes)',
                     field: 'blocked_standby',
                     sortable: true
-                }
+                },
+                {
+                    title: 'Edit',
+                    field: 'edit',
+                    formatter: this.formatEdit
+                },
+                {
+                    title: 'Delete',
+                    field: 'delete',
+                    formatter: this.formatDelete
+                },
             ],
             options: {
+                toolbar: '#toolbar',
                 search: true,
                 showColumns: true,
                 sortable: true,
@@ -47,6 +65,32 @@ export default {
     },
     components: {
         BootstrapTable
+    },
+    methods: {
+        formatEdit() {
+            return '<button class="btn btn-link">Edit</button>';
+        },
+        formatDelete() {
+            return '<button class="btn btn-link text-danger">Delete</button>';
+        },
+        performAction(field, value, row) {
+            if (field === 'edit') {
+                this.$store.dispatch('modalSetTitle', 'Edit Target');
+                this.$store.dispatch('modalSetBody', TargetForm);
+                this.$store.dispatch('modalSetData', {id: row.id});
+                this.$store.dispatch('showModal');
+            } else {
+                this.$api.DELETE('target', row.id).then(() => {
+                    this.$store.dispatch('fetchTargets', { api: this.$api });
+                });
+            }
+        },
+        addNewTarget() {
+            this.$store.dispatch('modalSetTitle', 'New Target');
+            this.$store.dispatch('modalSetBody', TargetForm);
+            this.$store.dispatch('modalSetData', {});
+            this.$store.dispatch('showModal');
+        }
     },
     created() {
         this.$store.dispatch('fetchTargets', { api: this.$api });

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import modal from './modules/modal';
 import sidebar from './modules/sidebar';
 import target from './modules/target';
 import proxy from './modules/proxy';
@@ -12,6 +13,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
+        modal,
         sidebar,
         target,
         proxy,

@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <Modal />
         <div id="nav">
             <div class="d-flex" id="wrapper" v-bind:class="{ toggled: sidebarHidden }">
 
@@ -24,6 +25,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import Modal from './components/modal/Modal';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 
@@ -33,6 +35,7 @@ export default {
         ...mapGetters(['sidebarHidden'])
     },
     components: {
+        Modal,
         Sidebar,
         Topbar
     }
