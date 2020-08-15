@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         fetchData() {
-            this.$api.GET('target', this.sel.id).then((resp) => {
+            this.$api.sessionRequest(this.$api.GET('target', this.sel.id).then((resp) => {
                 const target = resp.data.data;
                 if (target.domain !== undefined) {
                     this.target.domain = target.domain;
@@ -70,19 +70,19 @@ export default {
                     this.target.providers = target.providers;
                     this.target.plans = target.plans;
                 }
-            });
+            }));
         },
         formSubmit() {
             if (this.sel.id) {
-                this.$api.PUT('target', this.sel.id, this.target).then(() => {
+                this.$api.sessionRequest(this.$api.PUT('target', this.sel.id, this.target).then(() => {
                     this.$store.dispatch('fetchTargets', { api: this.$api });
                     this.$store.dispatch('closeModal');
-                });
+                }));
             } else {
-                this.$api.POST('target', this.target).then(() => {
+                this.$api.sessionRequest(this.$api.POST('target', this.target).then(() => {
                     this.$store.dispatch('fetchTargets', { api: this.$api });
                     this.$store.dispatch('closeModal');
-                });
+                }));
             }
         }
     },

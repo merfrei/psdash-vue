@@ -67,6 +67,17 @@ class API {
         this.username = Cookies.get('username')
         this.token = Cookies.get('token');
     }
+    sessionRequest(request) {
+        this.checkSession().then((isOk) => {
+            if (isOk) {
+                return request;
+            } else {
+                alert('Session has expired');
+                this.logout();
+                window.location.replace('/');  // To force a clean init
+            }
+        });
+    }
     checkSession() {
         return new Promise((resolve) => {
             this.POST('/token', { 'username': this.username }).then((response) => {

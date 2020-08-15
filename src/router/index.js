@@ -26,6 +26,10 @@ const routes = [
         }
     },
     {
+        path: '/',
+        redirect: '/targets'
+    },
+    {
         path: '/targets',
         name: 'Targets',
         component: TargetList
@@ -77,7 +81,9 @@ router.beforeEach((to, from, next) => {
             if (isOk) {
                 next();
             } else {
-                next('/login');
+                alert('Session has expired');
+                router.app.$api.logout();
+                window.location.replace('/');  // To force a clean init
             }
         });
     }

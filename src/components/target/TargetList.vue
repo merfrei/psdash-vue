@@ -80,9 +80,9 @@ export default {
                 this.$store.dispatch('modalSetData', {id: row.id});
                 this.$store.dispatch('showModal');
             } else {
-                this.$api.DELETE('target', row.id).then(() => {
+                this.$api.sessionRequest(this.$api.DELETE('target', row.id).then(() => {
                     this.$store.dispatch('fetchTargets', { api: this.$api });
-                });
+                }));
             }
         },
         addNewTarget() {
