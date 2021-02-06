@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="targetSleepInput">Sleep (minutes)</label>
-            <input v-model="target.blocked_standby" type="number" min="0" max="999999" class="form-control" id="targetSleepInput" required>
+            <input v-model.number="target.blocked_standby" type="number" min="0" max="999999" class="form-control" id="targetSleepInput" required>
         </div>
         <div class="form-group">
             <label for="targetProviderSelect">Providers</label>
